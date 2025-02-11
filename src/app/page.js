@@ -1,4 +1,6 @@
 'use client'
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 const favorites = [
   {
     id: 1,
@@ -52,6 +54,8 @@ const perks = [
 
 export default function Home() {
   return (
+    <>
+    <Navbar />
     <div className="bg-white">
       <header className="relative overflow-hidden">
         {/* Hero section */}
@@ -339,5 +343,7 @@ export default function Home() {
         </section>
       </main>
     </div>
+    <Footer />
+    </>
   )
 }
