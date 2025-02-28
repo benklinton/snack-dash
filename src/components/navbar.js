@@ -30,7 +30,7 @@ const navigation = {
         },
         {
           name: 'All Drinks',
-          href: '#',
+          href: '/drinks',
           imageSrc: 'http://localhost:8080/drink-2.jpg',
           imageAlt: '',
         },
@@ -41,13 +41,7 @@ const navigation = {
           name: 'Coke Products',
           items: [
             { name: 'Coca-Cola', href: '#' },
-            { name: 'Barqs', href: '#' },
-            { name: 'DASANI', href: '#' },
-            { name: 'FRESCA', href: '#' },
-            { name: 'Fanta', href: '#' },
-            { name: 'Minute Maid', href: '#' },
             { name: 'Sprite', href: '#' },
-            { name: 'POWERADE', href: '#' },
             { name: 'Inca Kola', href: '#' },
           ],
         },
@@ -58,20 +52,13 @@ const navigation = {
             { name: 'Pepsi', href: '#' },
             { name: 'Mtn Dew', href: '#' },
             { name: 'Dr Pepper', href: '#' },
-            { name: 'Starry', href: '#' },
-            { name: 'Gatorade', href: '#' },
-            { name: 'Squirt', href: '#' },
           ],
         },
         {
           id: 'other',
           name: 'Other Brands',
           items: [
-            { name: 'Cheerwine', href: '#' },
-            { name: 'Moxie', href: '#' },
-            { name: 'Guarana', href: '#' },
-            { name: 'Apple Beer', href: '#' },
-            { name: 'Jones Soda', href: '#' },
+            { name: 'Coming Soon!', href: '#' },
           ],
         },
       ],
@@ -89,7 +76,7 @@ const navigation = {
         },
         {
           name: 'All Snacks',
-          href: '#',
+          href: '/snacks',
           imageSrc: 'http://localhost:8080/all-snacks.jpg',
           imageAlt:
             'placeholder',

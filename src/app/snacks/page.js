@@ -136,7 +136,7 @@ const products = [
 
 ]
 
-export default function Drinks() {
+export default function Snacks() {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     return (
         <>
