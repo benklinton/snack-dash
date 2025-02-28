@@ -1,54 +1,54 @@
 'use client'
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-const favorites = [
+const deals = [
   {
     id: 1,
-    name: 'Item',
-    price: '$32',
+    name: 'Cosmic Brownies',
+    price: '$3.50',
     href: '#',
-    imageSrc: 'https://placehold.co/600x400',
+    imageSrc: 'http://localhost:8080/cosmic-brownies.jpg',
     imageAlt: "Placeholder image",
   },
   {
     id: 2,
-    name: 'Item',
-    price: '$32',
+    name: 'Bueno Bars',
+    price: '$1.99',
     href: '#',
-    imageSrc: 'https://placehold.co/600x400',
+    imageSrc: 'http://localhost:8080/bueno-bars.jpg',
     imageAlt: "Placeholder image",
   },
   {
     id: 3,
-    name: 'Item',
-    price: '$36',
+    name: 'Assorted Powerade',
+    price: '$1.50',
     href: '#',
-    imageSrc: 'https://placehold.co/600x400',
+    imageSrc: 'http://localhost:8080/powerade.png',
     imageAlt:
       "Placeholder image",
   },
 ]
 const perks = [
   {
-    name: 'Free returns',
-    imageUrl: 'https://tailwindui.com/plus-assets/img/ecommerce/icons/icon-returns-light.svg',
-    description: 'Not what you expected? Place it back in the parcel and attach the pre-paid postage stamp.',
+    name: 'Wide Selection',
+    imageUrl: 'http://localhost:8080/candy-icon.svg',
+    description: 'From sweet treats to savory snacks, we got something for every craving!.',
   },
   {
     name: 'Same day delivery',
-    imageUrl: 'https://tailwindui.com/plus-assets/img/ecommerce/icons/icon-calendar-light.svg',
+    imageUrl: 'http://localhost:8080/calendar-icon.svg',
     description:
-      'We offer a delivery service that has never been done before. Checkout today and receive your products within hours.',
+      'Get your favorite snacks delivered srtaight to your door in on time',
   },
   {
-    name: 'All year discount',
-    imageUrl: 'https://tailwindui.com/plus-assets/img/ecommerce/icons/icon-gift-card-light.svg',
-    description: 'Looking for a deal? You can use the code "ALLYEAR" at checkout and get money off all year round.',
+    name: 'Affordable prices',
+    imageUrl: 'http://localhost:8080/money-icon.svg',
+    description: 'Enjoy delicious snacks without breaking the bank',
   },
   {
-    name: 'For the planet',
-    imageUrl: 'https://tailwindui.com/plus-assets/img/ecommerce/icons/icon-planet-light.svg',
-    description: 'We’ve pledged 1% of sales to the preservation and restoration of the natural environment.',
+    name: 'Exclusive Deals and Bundles',
+    imageUrl: 'http://localhost:8080/bundle-icon.svg',
+    description: 'Save more with special discounts and bundles you won’t find anywhere else!',
   },
 ]
 
@@ -63,10 +63,10 @@ export default function Home() {
           <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
             <div className="sm:max-w-lg">
               <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                Insert Text Here
+                Snack Dash
               </h1>
               <p className="mt-4 text-xl text-gray-500">
-              Lorem ipsum odor amet, consectetuer adipiscing elit. Lacus placerat dis pharetra, viverra habitant sagittis quam.
+              Your ultimate destination for all things sweet and savory!
               </p>
             </div>
             <div>
@@ -82,37 +82,14 @@ export default function Home() {
                         <div className="h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
                           <img
                             alt=""
-                            src="https://placehold.co/200x400?text=Image"
+                            src="http://localhost:8080/bag-chips.jpg"
                             className="size-full object-cover"
                           />
                         </div>
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
                           <img
                             alt=""
-                            src="https://placehold.co/200x400?text=Image"
-                            className="size-full object-cover"
-                          />
-                        </div>
-                      </div>
-                      <div className="grid shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                        <div className="h-64 w-44 overflow-hidden rounded-lg">
-                          <img
-                            alt=""
-                            src="https://placehold.co/200x400?text=Image"
-                            className="size-full object-cover"
-                          />
-                        </div>
-                        <div className="h-64 w-44 overflow-hidden rounded-lg">
-                          <img
-                            alt=""
-                            src="https://placehold.co/200x400?text=Image"
-                            className="size-full object-cover"
-                          />
-                        </div>
-                        <div className="h-64 w-44 overflow-hidden rounded-lg">
-                          <img
-                            alt=""
-                            src="https://placehold.co/200x400?text=Image"
+                            src="http://localhost:8080/candybars.jpg"
                             className="size-full object-cover"
                           />
                         </div>
@@ -121,14 +98,37 @@ export default function Home() {
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
                           <img
                             alt=""
-                            src="https://placehold.co/200x400?text=Image"
+                            src="http://localhost:8080/donuts.jpg"
                             className="size-full object-cover"
                           />
                         </div>
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
                           <img
                             alt=""
-                            src="https://placehold.co/200x400?text=Image"
+                            src="http://localhost:8080/snack-art.jpg"
+                            className="size-full object-cover"
+                          />
+                        </div>
+                        <div className="h-64 w-44 overflow-hidden rounded-lg">
+                          <img
+                            alt=""
+                            src="http://localhost:8080/cookies.jpg"
+                            className="size-full object-cover"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                        <div className="h-64 w-44 overflow-hidden rounded-lg">
+                          <img
+                            alt=""
+                            src="http://localhost:8080/popcorn.jpg"
+                            className="size-full object-cover"
+                          />
+                        </div>
+                        <div className="h-64 w-44 overflow-hidden rounded-lg">
+                          <img
+                            alt=""
+                            src="http://localhost:8080/gummy-worms.jpg"
                             className="size-full object-cover"
                           />
                         </div>
@@ -163,10 +163,10 @@ export default function Home() {
             </div>
 
             <div className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8">
-              <div className="group relative aspect-2/1 overflow-hidden rounded-lg sm:row-span-2 sm:aspect-square">
+              <div className="group relative aspect-2/1 overflow-hidden rounded-lg sm:row-span-2 sm:aspect-square bg-black">
                 <img
                   alt=""
-                  src="https://placehold.co/600x400"
+                  src="http://localhost:8080/candybars.jpg"
                   className="absolute size-full object-cover group-hover:opacity-75"
                 />
                 <div
@@ -175,22 +175,22 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 flex items-end p-6">
                   <div>
-                    <h3 className="font-semibold text-gray-900">
+                    <h3 className="font-semibold text-white">
                       <a href="#">
                         <span className="absolute inset-0" />
-                        Category
+                        Candy Bars
                       </a>
                     </h3>
-                    <p aria-hidden="true" className="mt-1 text-sm text-gray-900">
+                    <p aria-hidden="true" className="mt-1 text-sm text-white">
                       Shop now
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="group relative aspect-2/1 overflow-hidden rounded-lg sm:aspect-auto">
+              <div className="group relative aspect-2/1 overflow-hidden rounded-lg sm:aspect-auto bg-black">
                 <img
                   alt=""
-                  src="https://placehold.co/600x400"
+                  src="http://localhost:8080/liter-drinks.jpg"
                   className="absolute size-full object-cover group-hover:opacity-75"
                 />
                 <div
@@ -199,22 +199,22 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 flex items-end p-6">
                   <div>
-                    <h3 className="font-semibold text-gray-900">
+                    <h3 className="font-semibold text-white">
                       <a href="#">
                         <span className="absolute inset-0" />
-                        Category
+                        Drinks
                       </a>
                     </h3>
-                    <p aria-hidden="true" className="mt-1 text-sm text-gray-900">
+                    <p aria-hidden="true" className="mt-1 text-sm text-white">
                       Shop now
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="group relative aspect-2/1 overflow-hidden rounded-lg sm:aspect-auto">
+              <div className="group relative aspect-2/1 overflow-hidden rounded-lg sm:aspect-auto bg-black">
                 <img
                   alt=""
-                  src="https://placehold.co/600x400"
+                  src="http://localhost:8080/chips.jpg"
                   className="absolute size-full object-cover group-hover:opacity-75"
                 />
                 <div
@@ -223,13 +223,13 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 flex items-end p-6">
                   <div>
-                    <h3 className="font-semibold text-gray-900">
+                    <h3 className="font-semibold text-white">
                       <a href="#">
                         <span className="absolute inset-0" />
-                        Category
+                        Chips
                       </a>
                     </h3>
-                    <p aria-hidden="true" className="mt-1 text-sm text-gray-900">
+                    <p aria-hidden="true" className="mt-1 text-sm text-white">
                       Shop now
                     </p>
                   </div>
@@ -245,26 +245,26 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {/* Featured section */}
+        {/* About section */}
         <section aria-labelledby="cause-heading">
           <div className="relative bg-gray-800 px-6 py-32 sm:px-12 sm:py-40 lg:px-16">
             <div className="absolute inset-0 overflow-hidden">
               <img
                 alt=""
-                src="https://placehold.co/600x400"
+                src="http://localhost:8080/assorted-snacks.jpg"
                 className="size-full object-cover"
               />
             </div>
             <div aria-hidden="true" className="absolute inset-0 bg-gray-900/50" />
             <div className="relative mx-auto flex max-w-3xl flex-col items-center text-center">
               <h2 id="cause-heading" className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                More text here
+              Get to Know Us!
               </h2>
               <p className="mt-3 text-xl text-white">
-              Lorem ipsum odor amet, consectetuer adipiscing elit. Lacus placerat dis pharetra, viverra habitant sagittis quam. Aptent ad sodales ultricies a vehicula eget maximus sem.
+              Craving something delicious? Learn more about our passion for bringing you the best sweet and savory snacks!
               </p>
               <a
-                href="#"
+                href="/about"
                 className="mt-8 block w-full rounded-md border border-transparent bg-white px-8 py-3 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"
               >
                 Read our story
@@ -273,34 +273,34 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Favorites section */}
+        {/* Deals section */}
         <section aria-labelledby="favorites-heading">
           <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
             <div className="sm:flex sm:items-baseline sm:justify-between">
               <h2 id="favorites-heading" className="text-2xl font-bold tracking-tight text-gray-900">
-                Our Favorites
+                Deals of the Day
               </h2>
               <a href="#" className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
-                Browse all favorites
+                Browse all deals
                 <span aria-hidden="true"> &rarr;</span>
               </a>
             </div>
 
             <div className="mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-0 lg:gap-x-8">
-              {favorites.map((favorite) => (
-                <div key={favorite.id} className="group relative">
+              {deals.map((deals) => (
+                <div key={deals.id} className="group relative">
                   <img
-                    alt={favorite.imageAlt}
-                    src={favorite.imageSrc}
+                    alt={deals.imageAlt}
+                    src={deals.imageSrc}
                     className="h-96 w-full rounded-lg object-cover group-hover:opacity-75 sm:aspect-2/3 sm:h-auto"
                   />
                   <h3 className="mt-4 text-base font-semibold text-gray-900">
-                    <a href={favorite.href}>
+                    <a href={deals.href}>
                       <span className="absolute inset-0" />
-                      {favorite.name}
+                      {deals.name}
                     </a>
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500">{favorite.price}</p>
+                  <p className="mt-1 text-sm text-gray-500">{deals.price}</p>
                 </div>
               ))}
             </div>

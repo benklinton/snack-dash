@@ -25,13 +25,13 @@ const navigation = {
         {
           name: 'New Arrivals',
           href: '#',
-          imageSrc: 'https://placehold.co/600x400',
+          imageSrc: 'http://localhost:8080/new-drink.jpg',
           imageAlt: '',
         },
         {
           name: 'All Drinks',
           href: '#',
-          imageSrc: 'https://placehold.co/600x400',
+          imageSrc: 'http://localhost:8080/drink-2.jpg',
           imageAlt: '',
         },
       ],
@@ -84,13 +84,13 @@ const navigation = {
           name: 'New Arrivals',
           href: '#',
           imageSrc:
-            'https://placehold.co/600x400',
+            'http://localhost:8080/new-snacks.jpg',
           imageAlt: 'Image of a bag of chips.',
         },
         {
           name: 'All Snacks',
           href: '#',
-          imageSrc: 'https://placehold.co/600x400',
+          imageSrc: 'http://localhost:8080/all-snacks.jpg',
           imageAlt:
             'placeholder',
         },
@@ -132,7 +132,7 @@ const navigation = {
     },
   ],
   pages: [
-    { name: 'Company', href: '#' }
+    { name: 'Company', href: '/about' }
   ],
 }
 
@@ -263,7 +263,7 @@ export default function Navbar() {
 
             {/* Logo */}
             <div className="ml-4 flex lg:ml-0">
-              <a href="#">
+              <a href="/">
                 <span className="sr-only">Snack Dash</span>
                 <img
                   alt=""
