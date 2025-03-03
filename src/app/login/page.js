@@ -1,12 +1,15 @@
 'use client'
+import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        const data = new FormData(event.target)
-        const email = data.get('email')
-        const password = data.get('password')
-        alert(`Email: ${email}, Password: ${password}`)
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const { login } = useAuth();
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      login(username, password);
     }
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center py-24 sm:px-6 lg:px-8">
@@ -21,15 +24,18 @@ export default function Login() {
               <form action="#" method="POST" className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-                    Email address
+                    Username
                   </label>
                   <div className="mt-2">
                     <input
-                      id="email"
-                      name="email"
-                      type="email"
+                      id="username"
+                      name="username"
+                      type="text"
                       required
-                      autoComplete="email"
+                      placeholder="admin"
+                      autoComplete="username"
+                      value = {username}
+                      onChange = {e => setUsername(e.target.value)}
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                   </div>
@@ -45,7 +51,10 @@ export default function Login() {
                       name="password"
                       type="password"
                       required
+                      placeholder="password"
                       autoComplete="current-password"
+                      value = {password}
+                      onChange = {e => setPassword(e.target.value)}
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                   </div>
