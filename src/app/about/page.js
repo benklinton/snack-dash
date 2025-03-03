@@ -1,5 +1,8 @@
+"use client";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function About() {
     const stats = [
@@ -7,6 +10,32 @@ export default function About() {
         { label: 'Total revenue sales', value: '$3.5 million' },
         { label: 'Concurrent snackers (users)', value: '20,000' },
     ];
+    const [loading, setLoading] = useState(true);
+    const [image_url, setImageUrl] = useState(null);
+    const [image_alt, setImageAlt] = useState(null);
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+              const response = await axios.get("https://api.unsplash.com/photos/4LVpathQW_4", {
+                params: {
+                  client_id: process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY,
+                },
+              });
+               const image_url = response.data.urls.regular;
+               const image_alt = response.data.alt_description;
+                setImageUrl(image_url);
+                setImageAlt(image_alt);
+            }
+            catch (error) {
+              console.error(error);
+            }
+          setLoading(false);
+        }
+        fetchImages();
+      }
+        , []);
+    console.log(image_url);
+    console.log(image_alt);
     return (
         <>
             <Navbar />
@@ -24,7 +53,15 @@ export default function About() {
                                     </p>
                                 </div>
                                 <div className="flex justify-center mt-12 lg:mt-0 lg:justify-end lg:w-1/2">
-                                    <img className="w-full h-auto max-w-sm" src="http://localhost:8080/donut-hand.jpg" alt="" />
+                                    {loading ? (
+                                        <div className="w-full h-auto bg-gray-300 animate-pulse"></div>
+                                    ) : (
+                                        <img
+                                            className="w-full h-auto max-w-sm"
+                                            src={image_url}
+                                            alt={image_alt}
+                                        />
+                                    )}
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,5 @@
 'use client'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import {
   Dialog,
   DialogBackdrop,
@@ -24,15 +24,15 @@ const navigation = {
       featured: [
         {
           name: 'New Arrivals',
-          href: '#',
-          imageSrc: 'http://localhost:8080/new-drink.jpg',
-          imageAlt: '',
+          href: '/arrivals',
+          imageSrc: "https://images.unsplash.com/photo-1544418749-94b09b11e93f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MTY5MDR8MHwxfGFsbHx8fHx8fHx8fDE3NDEwMzA5OTd8&ixlib=rb-4.0.3&q=80&w=1080",
+          imageAlt: "clear drinking glass with ice cubes and flowing liquid during daytime",
         },
         {
           name: 'All Drinks',
           href: '/drinks',
-          imageSrc: 'http://localhost:8080/drink-2.jpg',
-          imageAlt: '',
+          imageSrc: "https://images.unsplash.com/photo-1566846128021-b940b0eec910?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MTY5MDR8MHwxfGFsbHx8fHx8fHx8fDE3NDEwMzEwNzZ8&ixlib=rb-4.0.3&q=80&w=1080",
+          imageAlt: "filled glass bottle",
         },
       ],
       sections: [
@@ -40,25 +40,25 @@ const navigation = {
           id: 'coke',
           name: 'Coke Products',
           items: [
-            { name: 'Coca-Cola', href: '#' },
-            { name: 'Sprite', href: '#' },
-            { name: 'Inca Kola', href: '#' },
+            { name: 'Coca-Cola', href: '/drinks' },
+            { name: 'Sprite', href: '/drinks' },
+            { name: 'Inca Kola', href: '/drinks' },
           ],
         },
         {
           id: 'pepsi',
           name: 'Pepsi Products',
           items: [
-            { name: 'Pepsi', href: '#' },
-            { name: 'Mtn Dew', href: '#' },
-            { name: 'Dr Pepper', href: '#' },
+            { name: 'Pepsi', href: '/drinks' },
+            { name: 'Mtn Dew', href: '/drinks' },
+            { name: 'Dr Pepper', href: '/drinks' },
           ],
         },
         {
           id: 'other',
           name: 'Other Brands',
           items: [
-            { name: 'Coming Soon!', href: '#' },
+            { name: 'Coming Soon!', href: '/drinks' },
           ],
         },
       ],
@@ -69,17 +69,15 @@ const navigation = {
       featured: [
         {
           name: 'New Arrivals',
-          href: '#',
-          imageSrc:
-            'http://localhost:8080/new-snacks.jpg',
-          imageAlt: 'Image of a bag of chips.',
+          href: '/arrivals',
+          imageSrc: "https://images.unsplash.com/photo-1519087318609-bfb5c04c27f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MTY5MDR8MHwxfGFsbHx8fHx8fHx8fDE3NDEwMzExMzF8&ixlib=rb-4.0.3&q=80&w=1080",
+          imageAlt: "person holding a candy pack on white plastic box",
         },
         {
           name: 'All Snacks',
           href: '/snacks',
-          imageSrc: 'http://localhost:8080/all-snacks.jpg',
-          imageAlt:
-            'placeholder',
+          imageSrc: "https://images.unsplash.com/photo-1576712967455-c8d22580e9be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MTY5MDR8MHwxfGFsbHx8fHx8fHx8fDE3NDEwMzExODJ8&ixlib=rb-4.0.3&q=80&w=1080",
+          imageAlt: "assorted-color fruits on display",
         },
       ],
       sections: [
@@ -87,32 +85,32 @@ const navigation = {
           id: 'sweet',
           name: 'Sweet',
           items: [
-            { name: 'Hostess', href: '#' },
-            { name: 'Oreos', href: '#' },
-            { name: 'Little Debbie', href: '#' },
-            { name: 'M&M', href: '#' },
-            { name: 'Hershey', href: '#' },
+            { name: 'Hostess', href: '/snacks' },
+            { name: 'Oreos', href: '/snacks' },
+            { name: 'Little Debbie', href: '/snacks' },
+            { name: 'M&M', href: '/snacks' },
+            { name: 'Hershey', href: '/snacks' },
           ],
         },
         {
           id: 'salty',
           name: 'Salty',
           items: [
-            { name: 'Doritos', href: '#' },
-            { name: 'Pringles', href: '#' },
-            { name: 'Cheez-Its', href: '#' },
-            { name: 'Lays', href: '#' },
-            { name: 'Pretzels', href: '#' },
+            { name: 'Doritos', href: '/snacks' },
+            { name: 'Pringles', href: '/snacks' },
+            { name: 'Cheez-Its', href: '/snacks' },
+            { name: 'Lays', href: '/snacks' },
+            { name: 'Pretzels', href: '/snacks' },
           ],
         },
         {
           id: 'brands',
           name: 'Brands',
           items: [
-            { name: 'Mars', href: '#' },
-            { name: 'Nestle', href: '#' },
-            { name: 'Haribo', href: '#' },
-            { name: 'Ferrero', href: '#' },
+            { name: 'Mars', href: '/snacks' },
+            { name: 'Nestle', href: '/snacks' },
+            { name: 'Haribo', href: '/snacks' },
+            { name: 'Ferrero', href: '/snacks' },
           ],
         },
       ],

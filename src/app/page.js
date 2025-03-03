@@ -116,8 +116,6 @@ export default function Home() {
           });
           image.url = response.data.urls.regular;
           image.alt = response.data.alt_description;
-          console.log(image.url);
-          console.log(image.alt);
         }
         catch (error) {
           console.error(error);
@@ -128,9 +126,6 @@ export default function Home() {
     fetchImages();
   }
     , []);
-
-  console.log(savedImages[0].url);
-
   return (
     <>
       <Navbar />
