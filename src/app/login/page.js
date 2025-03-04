@@ -33,7 +33,7 @@ export default function Login() {
           Log in to your account
         </h2>
       </div>
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500 text-center">{error}</p>}
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
         <div className="bg-white px-6 py-12 shadow-sm sm:rounded-lg sm:px-12">
           <form className="space-y-6" onSubmit={handleSubmit}>
