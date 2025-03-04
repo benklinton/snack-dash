@@ -1,15 +1,12 @@
+"use client";
+import { SessionProvider } from "next-auth/react";
 import "./globals.css";
-
-export const metadata = {
-  title: "Snack Dash",
-  description: "Brought to you by God's Perfect Idiot",
-};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {children}
+        <SessionProvider>{children}</SessionProvider>
         </body>
     </html>
   )
