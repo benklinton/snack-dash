@@ -348,7 +348,7 @@ export default function Navbar() {
                   Log in
                 </a>
                 <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
-                <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                <a href="/signup" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                   Create account
                 </a>
               </div>
