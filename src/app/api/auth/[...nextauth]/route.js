@@ -5,6 +5,8 @@ import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
+console.log('DATABASE_URL:', process.env.DATABASE_URL)
+
 export const authOptions = {
   providers: [
     CredentialsProvider({
