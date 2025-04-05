@@ -2,11 +2,13 @@
 
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import { useState } from "react";
 
 export default function Arrivals() {
+    const [cart, setCart] = useState([]);
     return (
         <>
-            <Navbar />
+            <Navbar cart={cart} />
             <div className="bg-gray-50">
                 <div>
                     <main>

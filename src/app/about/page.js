@@ -36,9 +36,10 @@ export default function About() {
         , []);
     console.log(image_url);
     console.log(image_alt);
+    const [cart, setCart] = useState([]);
     return (
         <>
-            <Navbar />
+            <Navbar cart={cart} />
             <div className="bg-white">
                 <div className="relative isolate">
                     <div className="overflow-hidden">
