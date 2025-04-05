@@ -15,6 +15,7 @@ import {
   TabPanels,
 } from '@headlessui/react'
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { getSession, signOut } from 'next-auth/react';
 
 const navigation = {
   categories: [
@@ -121,8 +122,19 @@ const navigation = {
   ],
 }
 
-export default function Navbar() {
+export default function Navbar({ cart }) {
   const [open, setOpen] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Check if the user is authenticated
+    const checkAuth = async () => {
+      const session = await getSession();
+      setIsAuthenticated(!!session); // Set to true if session exists
+    };
+    checkAuth();
+  }, []);
+
   return (
     <div className="bg-white">
       {/* Mobile menu */}
@@ -224,7 +236,7 @@ export default function Navbar() {
                 </a>
               </div>
               <div className="flow-root">
-                <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                <a href="/signup" className="-m-2 block p-2 font-medium text-gray-900">
                   Create account
                 </a>
               </div>
@@ -344,13 +356,26 @@ export default function Navbar() {
 
             <div className="ml-auto flex items-center">
               <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                <a href="/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                  Log in
-                </a>
-                <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
-                <a href="/signup" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                  Create account
-                </a>
+                {isAuthenticated ? (
+                  <>
+                    <button
+                      onClick={() => signOut()}
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                    >
+                      Log out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <a href="/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                      Log in
+                    </a>
+                    <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
+                    <a href="/signup" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                      Create account
+                    </a>
+                  </>
+                )}
               </div>
               {/* Cart */}
               <div className="ml-4 flow-root lg:ml-6">
@@ -359,7 +384,7 @@ export default function Navbar() {
                     aria-hidden="true"
                     className="size-6 shrink-0 text-gray-400 group-hover:text-gray-500"
                   />
-                  <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                  <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{cart.length}</span>
                   <span className="sr-only">items in cart, view bag</span>
                 </a>
               </div>

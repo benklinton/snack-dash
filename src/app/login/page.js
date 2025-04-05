@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
@@ -22,7 +22,12 @@ export default function Login() {
     if (result?.error) {
       setError(result.error);
     } else {
-      router.push('/dashboard');
+      const session = await getSession();
+      if (session) {
+        router.push('/'); // Redirect to home page on successful login
+      } else {
+        setError('Login failed. Please try again.');
+      }
     }
   };
 
@@ -113,7 +118,7 @@ export default function Login() {
               </div>
 
               <div className="text-sm/6">
-                <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                <a href="/forgot" className="font-semibold text-indigo-600 hover:text-indigo-500">
                   Forgot password?
                 </a>
               </div>

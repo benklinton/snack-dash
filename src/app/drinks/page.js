@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     Dialog,
     DialogBackdrop,
@@ -84,63 +84,115 @@ const products = [
         name: 'Coca-Cola',
         href: '#',
         price: '$2.50',
-        description: '3 flavors available',
-        imageSrc: 'http://localhost:8080/coca-cola.jpg',
-        imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
+        description: 'Add to Cart',
+        imageSrc: 'https://i.postimg.cc/kGPhMxWx/coca-cola.jpg',
+        imageAlt: 'cans of coca-cola',
     },
     {
         id: 2,
         name: 'Pepsico',
         href: '#',
         price: '$2.50',
-        description: '3 flavors available',
-        imageSrc: 'http://localhost:8080/pepsi.jpg',
-        imageAlt: 'Paper card sitting upright in walnut card holder on desk.',
+        description: 'Add to Cart',
+        imageSrc: 'https://i.postimg.cc/fRV7FV9Z/pepsi.jpg',
+        imageAlt: 'cans of pepspi',
     },
     {
         id: 3,
         name: 'Mountain Dew',
         href: '#',
         price: '$2.50',
-        description: 'Heather Gray',
-        imageSrc: 'http://localhost:8080/mtn-dew.jpg',
-        imageAlt: 'Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.',
+        description: 'Add to Cart',
+        imageSrc: 'https://i.postimg.cc/3Nw0vqj7/mtn-dew.jpg',
+        imageAlt: 'cans of mountain dew',
     },
     {
         id: 4,
         name: 'Dr. Pepper',
         href: '#',
-        price: '$32',
-        description: 'Heather Gray',
-        imageSrc: 'http://localhost:8080/dr-pepper.jpg',
-        imageAlt: 'Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.',
+        price: '$2.50',
+        description: 'Add to Cart',
+        imageSrc: 'https://i.postimg.cc/BnJbLkJz/dr-pepper.jpg',
+        imageAlt: 'cans of dr pepper',
     },
     {
         id: 5,
         name: 'Sprite',
         href: '#',
-        price: '$32',
-        description: 'Heather Gray',
-        imageSrc: 'http://localhost:8080/sprite.jpg',
-        imageAlt: 'Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.',
+        price: '$2.50',
+        description: 'Add to Cart',
+        imageSrc: 'https://i.postimg.cc/T1qGT253/sprite.jpg',
+        imageAlt: 'cans of sprite',
     },
     {
         id: 6,
         name: 'Inca-Kola',
         href: '#',
-        price: '$32',
-        description: 'Heather Gray',
-        imageSrc: 'http://localhost:8080/inca-kola.jpg',
-        imageAlt: 'Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.',
+        price: '$2.50',
+        description: 'Add to Cart',
+        imageSrc: 'https://i.postimg.cc/TPL6pJ5S/inca-kola.jpg',
+        imageAlt: 'cans of inca-kola',
     },
 
 ]
 
 export default function Drinks() {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+    const [cart, setCart] = useState([])
+
+    const addToCart = (item) => {
+        setCart((prevCart) => [...prevCart, item]);
+    }
+
+    const fetchCartFromServer = async () => {
+        try {
+            const response = await fetch(`/api/cart?userId=${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch cart');
+            }
+            const data = await response.json();
+            setCart(data.items || []);
+        }
+        catch (error) {
+            console.error('Error fetching cart:', error);
+        }
+    }
+
+    const saveCartToServer = async () => {
+        try {
+            const response = await fetch('/api/cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ items: cart }),
+            });
+            if (!response.ok) {
+                throw new Error('Failed to save cart');
+            }
+        }
+        catch (error) {
+            console.error('Error saving cart:', error);
+        }
+    }
+
+    useEffect(() => {
+        fetchCartFromServer();
+    }, [])
+    useEffect(() => {
+        saveCartToServer();
+    }, [cart])
+
+
+
     return (
         <>
-            <Navbar />
+            <Navbar cart={cart} />
             <div className="bg-gray-50">
                 <div>
                     {/* Mobile filter dialog */}
@@ -368,7 +420,7 @@ export default function Drinks() {
                                 </h2>
                                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
                                     {products.map((product) => (
-                                        <a key={product.id} href={product.href} className="group">
+                                        <a key={product.id} href={product.href} onClick={() => addToCart(product)} className="group">
                                             <img
                                                 alt={product.imageAlt}
                                                 src={product.imageSrc}

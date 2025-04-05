@@ -10,23 +10,26 @@ const deals = [
     name: 'Cosmic Brownies',
     price: '$3.50',
     href: '#',
-    imageSrc: 'http://localhost:8080/cosmic-brownies.jpg',
-    imageAlt: "Placeholder image",
+    description: 'Add to Cart',
+    imageSrc: 'https://i.postimg.cc/x8fhyf7h/cosmic-brownies.jpg',
+    imageAlt: "Box of Cosmic Brownies",
   },
   {
     id: 2,
     name: 'Bueno Bars',
     price: '$1.99',
     href: '#',
-    imageSrc: 'http://localhost:8080/bueno-bars.jpg',
-    imageAlt: "Placeholder image",
+    description: 'Add to Cart',
+    imageSrc: 'https://i.postimg.cc/kGC6TZFk/bueno-bars.jpg',
+    imageAlt: "a box of Bueno Bars",
   },
   {
     id: 3,
     name: 'Assorted Powerade',
     price: '$1.50',
     href: '#',
-    imageSrc: 'http://localhost:8080/powerade.png',
+    description: 'Add to Cart',
+    imageSrc: 'https://i.postimg.cc/Vv7fXH79/powerade.png',
     imageAlt:
       "Placeholder image",
   },
@@ -34,23 +37,23 @@ const deals = [
 const perks = [
   {
     name: 'Wide Selection',
-    imageUrl: 'http://localhost:8080/candy-icon.svg',
+    imageUrl: 'https://i.postimg.cc/XJjcJptZ/candy-icon.png',
     description: 'From sweet treats to savory snacks, we got something for every craving!.',
   },
   {
     name: 'Same day delivery',
-    imageUrl: 'http://localhost:8080/calendar-icon.svg',
+    imageUrl: 'https://i.postimg.cc/Wzm9yBRr/calendar-icon.png',
     description:
       'Get your favorite snacks delivered srtaight to your door in on time',
   },
   {
     name: 'Affordable prices',
-    imageUrl: 'http://localhost:8080/money-icon.svg',
+    imageUrl: 'https://i.postimg.cc/JzFQpryv/money-icon.png',
     description: 'Enjoy delicious snacks without breaking the bank',
   },
   {
     name: 'Exclusive Deals and Bundles',
-    imageUrl: 'http://localhost:8080/bundle-icon.svg',
+    imageUrl: 'https://i.postimg.cc/05LMXzZp/bundle-icon.png',
     description: 'Save more with special discounts and bundles you won’t find anywhere else!',
   },
 ]
@@ -91,19 +94,68 @@ const savedImages = [
     url: "",
     alt: "",
   },
-  { id: "PH1bzadZq1w",
+  {
+    id: "PH1bzadZq1w",
     url: "",
     alt: "",
   },
-  {id: "7cRBG4nQtKs",
+  {
+    id: "7cRBG4nQtKs",
     url: "",
     alt: "",
   }
 ]
 
 export default function Home() {
-
+  const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const addToCart = (item) => {
+    setCart((prevCart) => [...prevCart, item]);
+  }
+
+  const fetchCartFromServer = async () => {
+    try {
+      const response = await fetch(`/api/cart?userId=${userId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      if (!response.ok) {
+        throw new Error('Failed to fetch cart');
+      }
+      const data = await response.json();
+      setCart(data.items || []);
+    }
+    catch (error) {
+      console.error('Error fetching cart:', error);
+    }
+  }
+
+  const saveCartToServer = async () => {
+    try {
+      const response = await fetch('/api/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ items: cart }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to save cart');
+      }
+    } catch (error) {
+      console.error('Error saving cart:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchCartFromServer();
+  }, [])
+  useEffect(() => {
+    saveCartToServer();
+  }, [cart])
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -128,7 +180,7 @@ export default function Home() {
     , []);
   return (
     <>
-      <Navbar />
+      <Navbar cart={cart} />
       <div className="bg-white">
         <header className="relative overflow-hidden">
           {/* Hero section */}
@@ -237,12 +289,12 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <a
+                  {/* <a
                     href="#"
                     className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700"
                   >
                     Shop Now
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
@@ -280,7 +332,7 @@ export default function Home() {
                   <div className="absolute inset-0 flex items-end p-6">
                     <div>
                       <h3 className="font-semibold text-white">
-                        <a href="#">
+                        <a href="/snacks">
                           <span className="absolute inset-0" />
                           Candy Bars
                         </a>
@@ -308,7 +360,7 @@ export default function Home() {
                   <div className="absolute inset-0 flex items-end p-6">
                     <div>
                       <h3 className="font-semibold text-white">
-                        <a href="#">
+                        <a href="/drinks">
                           <span className="absolute inset-0" />
                           Drinks
                         </a>
@@ -336,7 +388,7 @@ export default function Home() {
                   <div className="absolute inset-0 flex items-end p-6">
                     <div>
                       <h3 className="font-semibold text-white">
-                        <a href="#">
+                        <a href="/snacks">
                           <span className="absolute inset-0" />
                           Chips
                         </a>
@@ -362,8 +414,8 @@ export default function Home() {
             <div className="relative bg-gray-800 px-6 py-32 sm:px-12 sm:py-40 lg:px-16">
               <div className="absolute inset-0 overflow-hidden">
                 <img
-                  alt=""
-                  src="http://localhost:8080/assorted-snacks.jpg"
+                  alt="a large pile of snacks"
+                  src="https://i.postimg.cc/fRNXHV5V/assorted-snacks.jpg"
                   className="size-full object-cover"
                 />
               </div>
@@ -407,12 +459,13 @@ export default function Home() {
                       className="h-96 w-full rounded-lg object-cover group-hover:opacity-75 sm:aspect-2/3 sm:h-auto"
                     />
                     <h3 className="mt-4 text-base font-semibold text-gray-900">
-                      <a href={deals.href}>
+                      <a href={deals.href} onClick={() => addToCart(deals)}>
                         <span className="absolute inset-0" />
                         {deals.name}
                       </a>
                     </h3>
                     <p className="mt-1 text-sm text-gray-500">{deals.price}</p>
+                    <p className="mt-1 text-sm text-gray-500">{deals.description}</p>
                   </div>
                 ))}
               </div>

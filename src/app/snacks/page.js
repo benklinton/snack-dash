@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     Dialog,
     DialogBackdrop,
@@ -84,63 +84,111 @@ const products = [
         name: 'Assorted Frito-Lay Chips',
         href: '#',
         price: '$13',
-        description: '3 sizes available',
-        imageSrc: 'http://localhost:8080/assorted-chips.jpg',
-        imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
+        description: 'Add to Cart',
+        imageSrc: 'https://i.postimg.cc/VvLryh5p/assorted-chips.jpg',
+        imageAlt: 'Assorted Frito-Lay Chips in a bag on a white background.',
     },
     {
         id: 2,
         name: 'Assorted Mars Chocolate',
         href: '#',
-        price: '$64',
-        description: 'Walnut',
-        imageSrc: 'http://localhost:8080/assorted-mars-chocolate.jpg',
-        imageAlt: 'Paper card sitting upright in walnut card holder on desk.',
+        price: '$14',
+        description: 'Add to Cart',
+        imageSrc: 'https://i.postimg.cc/T1wwNW4X/assorted-mars-chocolate.jpg',
+        imageAlt: 'Assorted Mars Chocolate in a bag on a white background.',
     },
     {
         id: 3,
         name: 'Assorted Hershey Chocolate',
         href: '#',
-        price: '$32',
-        description: 'Heather Gray',
-        imageSrc: 'http://localhost:8080/assorted-hershey-chocolate.jpg',
-        imageAlt: 'Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.',
+        price: '$12',
+        description: 'Add to Cart',
+        imageSrc: 'https://i.postimg.cc/BnG3XKBQ/assorted-hershey-chocolate.jpg',
+        imageAlt: 'Assorted Hershey Chocolate in a bag on a white background.',
     },
     {
         id: 4,
         name: 'Assorted Hostess Snacks',
         href: '#',
-        price: '$32',
-        description: 'Heather Gray',
-        imageSrc: 'http://localhost:8080/assorted-hostess.jpg',
-        imageAlt: 'Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.',
+        price: '$21',
+        description: 'Add to Cart',
+        imageSrc: 'https://i.postimg.cc/CKB97MN6/assorted-hostess.jpg',
+        imageAlt: 'Assorted Hostess Snacks in a bag on a white background.',
     },
     {
         id: 5,
         name: 'Assorted Little Debbie Snacks',
         href: '#',
-        price: '$32',
-        description: 'Heather Gray',
-        imageSrc: 'http://localhost:8080/assorted-little-debbie.jpg',
-        imageAlt: 'Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.',
+        price: '$15',
+        description: 'Add to Cart',
+        imageSrc: 'https://i.postimg.cc/52ZsxBBn/assorted-little-debbie.jpg',
+        imageAlt: 'Assorted Little Debbie Snacks in a bag on a white background.',
     },
     {
         id: 6,
         name: 'Assorted Nabisco Snacks',
         href: '#',
-        price: '$32',
-        description: 'Heather Gray',
-        imageSrc: 'http://localhost:8080/assorted-nabisco.jpg',
-        imageAlt: 'Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.',
+        price: '$16',
+        description: 'Add to Cart',
+        imageSrc: 'https://i.postimg.cc/Cxf46R3D/assorted-nabisco.jpg',
+        imageAlt: 'Assorted Nabisco Snacks in a bag on a white background.',
     },
 
 ]
 
 export default function Snacks() {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+    const [cart, setCart] = useState([])
+
+    const addToCart = (item) => {
+        setCart((prevCart) => [...prevCart, item]);
+      }
+
+    const fetchCartFromServer = async () => {
+        try {
+            const response = await fetch(`/api/cart?userId=${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch cart');
+            }
+            const data = await response.json();
+            setCart(data.items || []);
+        }
+        catch (error) {
+            console.error('Error fetching cart:', error);
+        }
+    }
+    const saveCartToServer = async () => {
+        try {
+            const response = await fetch('/api/cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ items: cart }),
+            });
+            if (!response.ok) {
+                throw new Error('Failed to save cart');
+            }
+        } catch (error) {
+            console.error('Error saving cart:', error);
+        }
+    }
+
+    useEffect(() => {
+        fetchCartFromServer();
+    }, [])
+    useEffect(() => {
+        saveCartToServer();
+    }, [cart])
+
     return (
         <>
-            <Navbar />
+            <Navbar cart={cart} />
             <div className="bg-gray-50">
                 <div>
                     {/* Mobile filter dialog */}
@@ -368,7 +416,7 @@ export default function Snacks() {
                                 </h2>
                                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
                                     {products.map((product) => (
-                                        <a key={product.id} href={product.href} className="group">
+                                        <a key={product.id} href={product.href} onClick={() => addToCart(product)} className="group">
                                             <img
                                                 alt={product.imageAlt}
                                                 src={product.imageSrc}
