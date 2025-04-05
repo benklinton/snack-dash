@@ -1,7 +1,0 @@
-[build]
-  command = "npm run build"
-  functions = "netlify/functions"
-  publish = "out"
-
-[context.production.environment]
-  DATABASE_URL = "mongodb+srv://benklinton:ypYwm17uGAvfJZUl@snack-dash.oofstsn.mongodb.net/snackdash?retryWrites=true&w=majority&appName=Snack-Dash"
