@@ -37,23 +37,23 @@ const deals = [
 const perks = [
   {
     name: 'Wide Selection',
-    imageUrl: 'https://i.postimg.cc/XJjcJptZ/candy-icon.png',
+    imageUrl: '/candy.svg',
     description: 'From sweet treats to savory snacks, we got something for every craving!.',
   },
   {
     name: 'Same day delivery',
-    imageUrl: 'https://i.postimg.cc/Wzm9yBRr/calendar-icon.png',
+    imageUrl: '/calendar.svg',
     description:
       'Get your favorite snacks delivered srtaight to your door in on time',
   },
   {
     name: 'Affordable prices',
-    imageUrl: 'https://i.postimg.cc/JzFQpryv/money-icon.png',
+    imageUrl: '/money.svg',
     description: 'Enjoy delicious snacks without breaking the bank',
   },
   {
     name: 'Exclusive Deals and Bundles',
-    imageUrl: 'https://i.postimg.cc/05LMXzZp/bundle-icon.png',
+    imageUrl: '/bundle.svg',
     description: 'Save more with special discounts and bundles you won’t find anywhere else!',
   },
 ]
