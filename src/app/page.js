@@ -114,25 +114,6 @@ export default function Home() {
     setCart((prevCart) => [...prevCart, item]);
   }
 
-  const fetchCartFromServer = async () => {
-    try {
-      const response = await fetch(`/api/cart?userId=${userId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      if (!response.ok) {
-        throw new Error('Failed to fetch cart');
-      }
-      const data = await response.json();
-      setCart(data.items || []);
-    }
-    catch (error) {
-      console.error('Error fetching cart:', error);
-    }
-  }
-
   const saveCartToServer = async () => {
     try {
       const response = await fetch('/api/cart', {
@@ -149,13 +130,6 @@ export default function Home() {
       console.error('Error saving cart:', error);
     }
   }
-
-  useEffect(() => {
-    fetchCartFromServer();
-  }, [])
-  useEffect(() => {
-    saveCartToServer();
-  }, [cart])
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -288,13 +262,6 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-
-                  {/* <a
-                    href="#"
-                    className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700"
-                  >
-                    Shop Now
-                  </a> */}
                 </div>
               </div>
             </div>
