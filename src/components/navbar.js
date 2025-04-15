@@ -16,6 +16,7 @@ import {
 } from '@headlessui/react'
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { getSession, signOut } from 'next-auth/react';
+import CheckoutPage from '@/app/checkout/page';
 
 const navigation = {
   categories: [
@@ -140,7 +141,7 @@ export default function Navbar({ cart, setCart }) {
   };
 
   const handleCheckout = () => {
-    // Redirect to checkout page or trigger checkout process
+    // Redirect to the checkout page with the cart items
     window.location.href = '/checkout';
   };
 
