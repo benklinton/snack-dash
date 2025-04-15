@@ -122,7 +122,7 @@ const navigation = {
   ],
 }
 
-export default function Navbar({ cart }) {
+export default function Navbar({ cart, setCart }) {
   const [open, setOpen] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -134,6 +134,15 @@ export default function Navbar({ cart }) {
     };
     checkAuth();
   }, []);
+
+  const removeFromCart = (index) => {
+    setCart((prevCart) => prevCart.filter((_, i) => i !== index));
+  };
+
+  const handleCheckout = () => {
+    // Redirect to checkout page or trigger checkout process
+    window.location.href = '/checkout';
+  };
 
   return (
     <div className="bg-white">
@@ -377,16 +386,61 @@ export default function Navbar({ cart }) {
                   </>
                 )}
               </div>
-              {/* Cart */}
               <div className="ml-4 flow-root lg:ml-6">
-                <a href="#" className="group -m-2 flex items-center p-2">
-                  <ShoppingCartIcon
-                    aria-hidden="true"
-                    className="size-6 shrink-0 text-gray-400 group-hover:text-gray-500"
-                  />
-                  <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{cart.length}</span>
-                  <span className="sr-only">items in cart, view bag</span>
-                </a>
+                <Popover className="relative">
+                  <PopoverButton className="group -m-2 flex items-center p-2">
+                    <ShoppingCartIcon
+                      aria-hidden="true"
+                      className="size-6 shrink-0 text-gray-400 group-hover:text-gray-500"
+                    />
+                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                      {cart.length}
+                    </span>
+                    <span className="sr-only">items in cart, view bag</span>
+                  </PopoverButton>
+
+                  <PopoverPanel className="absolute right-0 z-10 mt-2 w-72 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                    <div className="p-4">
+                      {cart.length === 0 ? (
+                        <p className="text-sm text-gray-500">Your cart is empty.</p>
+                      ) : (
+                        <>
+                          <ul className="divide-y divide-gray-200">
+                            {cart.map((item, index) => (
+                              <li key={index} className="flex items-center justify-between py-2">
+                                <div className="flex items-center">
+                                  <img
+                                    src={item.imageSrc}
+                                    alt={item.imageAlt}
+                                    className="h-10 w-10 rounded-md object-cover"
+                                  />
+                                  <div className="ml-4">
+                                    <p className="text-sm font-medium text-gray-900">{item.name}</p>
+                                    <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+                                  </div>
+                                </div>
+                                <button
+                                  onClick={() => removeFromCart(index)}
+                                  className="text-sm font-medium text-red-600 hover:text-red-500"
+                                >
+                                  Remove
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                          <div className="mt-4">
+                            <button
+                              onClick={handleCheckout}
+                              className="w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            >
+                              Checkout
+                            </button>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </PopoverPanel>
+                </Popover>
               </div>
             </div>
           </div>

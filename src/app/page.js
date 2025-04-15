@@ -4,12 +4,13 @@ import Footer from "@/components/footer";
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 const deals = [
   {
     id: 1,
     name: 'Cosmic Brownies',
     price: '$3.50',
-    href: '#',
+    quantity: 1,
     description: 'Add to Cart',
     imageSrc: 'https://i.postimg.cc/x8fhyf7h/cosmic-brownies.jpg',
     imageAlt: "Box of Cosmic Brownies",
@@ -18,7 +19,7 @@ const deals = [
     id: 2,
     name: 'Bueno Bars',
     price: '$1.99',
-    href: '#',
+    quantity: 1,
     description: 'Add to Cart',
     imageSrc: 'https://i.postimg.cc/kGC6TZFk/bueno-bars.jpg',
     imageAlt: "a box of Bueno Bars",
@@ -27,11 +28,11 @@ const deals = [
     id: 3,
     name: 'Assorted Powerade',
     price: '$1.50',
-    href: '#',
+    quantity: 1,
     description: 'Add to Cart',
     imageSrc: 'https://i.postimg.cc/Vv7fXH79/powerade.png',
     imageAlt:
-      "Placeholder image",
+      "bottles of assorted Powerade flavors",
   },
 ]
 const perks = [
@@ -109,6 +110,8 @@ const savedImages = [
 export default function Home() {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { data: session } = useSession();
+  const userId = session?.user?.id || null;
 
   const addToCart = (item) => {
     setCart((prevCart) => [...prevCart, item]);
@@ -121,7 +124,7 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ items: cart }),
+        body: JSON.stringify({ userId, items: cart }),
       });
       if (!response.ok) {
         throw new Error('Failed to save cart');
@@ -152,9 +155,16 @@ export default function Home() {
     fetchImages();
   }
     , []);
+
+  useEffect(() => {
+    if( cart.length && userId !== null) {
+      saveCartToServer()
+    }
+  }, [cart, userId])
+
   return (
     <>
-      <Navbar cart={cart} />
+      <Navbar cart={cart} setCart={setCart} />
       <div className="bg-white">
         <header className="relative overflow-hidden">
           {/* Hero section */}
