@@ -35,13 +35,15 @@ export default function CheckoutPage() {
             }
         };
         fetchCart();
-        // Calculate the total price of the cart
-        const calculatedTotal = cart.reduce((sum, item) => {
-            const price = parseFloat(item.price.replace('$', '')); // Remove $ and convert to number
-            return sum + price * item.quantity;
-        }, 0);
-        setTotal(calculatedTotal.toFixed(2)); // Format to 2 decimal places
     }, [session]);
+
+    useEffect(() => {
+        const calculatedTotal = cart.reduce((sum, item) => {
+            const price = parseFloat(item.price.replace('$', ''))
+            return sum + (price * item.quantity);
+        }, 0);
+        setTotal(calculatedTotal.toFixed(2)); // Format total to 2 decimal places
+    }, [cart]);
 
     const handleConfirmCheckout = () => {
         // Clear the cart and redirect to a confirmation page
@@ -62,7 +64,7 @@ export default function CheckoutPage() {
                             <li key={index} className="flex items-center justify-between py-4">
                                 <div className="flex items-center">
                                     <img
-                                        src={item.imageSrc}
+                                        src={item.image}
                                         alt={item.imageAlt}
                                         className="h-16 w-16 rounded-md object-cover"
                                     />

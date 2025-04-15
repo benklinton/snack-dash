@@ -22,28 +22,23 @@ model User {
   cart      Cart?    @relation("UserCart") // Define the relation without `fields` and `references`
 }
 
-model Items {
-  id        String      @id @default(auto()) @map("_id") @db.ObjectId
-  name      String      @unique
-  price     String
-  image     String
-  createdAt DateTime    @default(now())
-  cartItems CartItem[]  // Add this field to complete the relation with CartItem
-}
 
 model Cart {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   user      User     @relation("UserCart", fields: [userId], references: [id])
   userId    String   @unique @db.ObjectId
-  items     CartItem[]
+  items     CartItems[]
   createdAt DateTime @default(now())
 }
 
-model CartItem {
+model CartItems {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   cart      Cart     @relation(fields: [cartId], references: [id])
   cartId    String   @db.ObjectId
-  item      Items    @relation(fields: [itemId], references: [id])
   itemId    String   @db.ObjectId
+  name      String
   quantity  Int
+  price     String
+  desc      String
+  image     String
 }

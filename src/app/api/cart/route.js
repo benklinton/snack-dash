@@ -15,12 +15,11 @@ export async function POST(req) {
         const validItems = items.map((item) => {
             return {
                 itemId:  ObjectId.createFromTime(item.id),
-                // name: item.name,
+                name: item.name,
                 quantity: item.quantity,
-                // price: item.price,
-                // description: item.description,
-                // imageSrc: item.imageSrc,
-
+                price: item.price,
+                desc: item.description,
+                image: item.imageSrc,
             };
         });
 
@@ -55,7 +54,6 @@ export async function GET(req) {
     try {
         const { searchParams } = new URL(req.url);
         const userId = searchParams.get('userId');
-        console.log('userId:', userId); // Log the userId for debugging
 
         if (!userId) {
             return new Response(JSON.stringify({ error: 'User ID is required' }), { status: 400 });
@@ -69,7 +67,11 @@ export async function GET(req) {
                     select: {
                         itemId: true,
                         cartId: true,
+                        name: true,
                         quantity: true,
+                        price: true,
+                        desc: true,
+                        image: true,
                     },
                 },
             },
