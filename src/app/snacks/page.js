@@ -1,9 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import { useCartSave } from '../hooks/useCartSave'
+import { useCartFetch } from '../hooks/useCartFetch'
 const products = [
     {
         id: 1,
@@ -70,28 +72,9 @@ export default function Snacks() {
     const addToCart = (item) => {
         setCart((prevCart) => [...prevCart, item]);
     }
-    const saveCartToServer = async () => {
-        try {
-            const response = await fetch('/api/cart', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ userId, items: cart }),
-            });
-            if (!response.ok) {
-                throw new Error('Failed to save cart');
-            }
-        } catch (error) {
-            console.error('Error saving cart:', error);
-        }
-    }
 
-    useEffect(() => {
-        if( cart.length && userId !== null) {
-          saveCartToServer()
-        }
-      }, [cart, userId])
+    useCartSave(userId, cart)
+    useCartFetch(userId, session)
 
     return (
         <>

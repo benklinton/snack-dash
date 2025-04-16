@@ -23,9 +23,6 @@ export async function POST(req) {
             };
         });
 
-        //Need to fix schemea to include the imageSrc, description, and price fields in the cart items
-        //Or I need rework database, whatever is easier
-
         // Upsert the cart for the user
         const cart = await prisma.cart.upsert({
             where: { userId },

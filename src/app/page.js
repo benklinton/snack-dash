@@ -1,10 +1,11 @@
 'use client'
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useCartSave } from "./hooks/useCartSave";
+import { useCartFetch } from "./hooks/useCartFetch";
 const deals = [
   {
     id: 1,
@@ -115,24 +116,13 @@ export default function Home() {
 
   const addToCart = (item) => {
     setCart((prevCart) => [...prevCart, item]);
-  }
+  };
 
-  const saveCartToServer = async () => {
-    try {
-      const response = await fetch('/api/cart', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId, items: cart }),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to save cart');
-      }
-    } catch (error) {
-      console.error('Error saving cart:', error);
-    }
-  }
+  useCartSave(userId, cart)
+  console.log(cart)
+  useCartFetch(userId, session)
+  console.log(cart)
+  
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -156,11 +146,6 @@ export default function Home() {
   }
     , []);
 
-  useEffect(() => {
-    if( cart.length && userId !== null) {
-      saveCartToServer()
-    }
-  }, [cart, userId])
 
   return (
     <>

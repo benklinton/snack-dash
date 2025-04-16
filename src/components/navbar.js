@@ -16,7 +16,6 @@ import {
 } from '@headlessui/react'
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { getSession, signOut } from 'next-auth/react';
-import CheckoutPage from '@/app/checkout/page';
 
 const navigation = {
   categories: [
