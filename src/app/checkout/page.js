@@ -64,7 +64,7 @@ export default function CheckoutPage() {
                             <li key={index} className="flex items-center justify-between py-4">
                                 <div className="flex items-center">
                                     <img
-                                        src={item.image}
+                                        src={item.imageSrc}
                                         alt={item.imageAlt}
                                         className="h-16 w-16 rounded-md object-cover"
                                     />

@@ -1,7 +1,6 @@
-import { use, useEffect } from "react";
+
 
 export function useCartSave(userId, cart) {
-    useEffect(() => {
         const saveCartToServer = async () => {
             try {
                 const response = await fetch('/api/cart', {
@@ -22,6 +21,5 @@ export function useCartSave(userId, cart) {
         if (cart.length && userId !== null) {
             saveCartToServer();
         }
-    }, [cart, userId]);
 }
     

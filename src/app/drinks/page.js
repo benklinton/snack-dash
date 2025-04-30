@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { useSession } from 'next-auth/react'
@@ -68,13 +68,30 @@ export default function Drinks() {
     const [cart, setCart] = useState([])
     const { data: session } = useSession()
     const userId = session?.user?.id || null
+    const isCartUpdated = useRef(false)
 
     const addToCart = (item) => {
-        setCart((prevCart) => [...prevCart, item]);
+        setCart((prevCart) => {
+            isCartUpdated.current = true
+            return [...prevCart, {...item }]
+        });
     }
 
-    useCartSave(userId, cart)
-    useCartFetch(userId, session)
+    const { cart: fetchedCart } = useCartFetch(userId, session)
+
+    useEffect(() => {
+        if (fetchedCart) {
+            setCart(fetchedCart)
+        }
+    }, [fetchedCart])
+
+    useEffect(() => {
+        if (isCartUpdated.current) {
+            console.log('Saving cart to server:', cart)
+            useCartSave(userId, cart);
+            isCartUpdated.current = false
+        }
+    }, [cart])
 
 
     return (

@@ -39,6 +39,6 @@ model CartItems {
   name      String
   quantity  Int
   price     String
-  desc      String
-  image     String
+  description      String
+  imageSrc     String
 }

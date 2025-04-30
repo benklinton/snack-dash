@@ -18,8 +18,8 @@ export async function POST(req) {
                 name: item.name,
                 quantity: item.quantity,
                 price: item.price,
-                desc: item.description,
-                image: item.imageSrc,
+                description: item.description,
+                imageSrc: item.imageSrc,
             };
         });
 
@@ -39,7 +39,6 @@ export async function POST(req) {
                 },
             },
         });
-
         return new Response(JSON.stringify(cart), { status: 200 });
     } catch (error) {
         console.error('Error saving cart:', error.message);
@@ -67,8 +66,8 @@ export async function GET(req) {
                         name: true,
                         quantity: true,
                         price: true,
-                        desc: true,
-                        image: true,
+                        description: true,
+                        imageSrc: true,
                     },
                 },
             },
@@ -82,5 +81,34 @@ export async function GET(req) {
     } catch (error) {
         console.error('Error retrieving cart:', error);
         return new Response(JSON.stringify({ error: 'Failed to retrieve cart' }), { status: 500 });
+    }
+}
+
+export async function DELETE(req) {
+    try {
+        const { itemId } = await req.json();
+
+        if (!itemId) {
+            return new Response(JSON.stringify({ error: 'Item ID is required' }), { status: 400 });
+        }
+
+        // Find the cart item by itemId
+        const cartItem = await prisma.cartItems.findFirst({
+            where: { itemId },
+        });
+
+        if (!cartItem) {
+            return new Response(JSON.stringify({ error: 'Item not found' }), { status: 404 });
+        }
+
+        // Delete the cart item using its unique id
+        await prisma.cartItems.delete({
+            where: { id: cartItem.id },
+        });
+
+        return new Response(JSON.stringify({ message: 'Item deleted successfully' }), { status: 200 });
+    } catch (error) {
+        console.error('Error deleting item from cart:', error);
+        return new Response(JSON.stringify({ error: 'Failed to delete item from cart' }), { status: 500 });
     }
 }

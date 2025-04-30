@@ -15,7 +15,7 @@ import {
   TabPanels,
 } from '@headlessui/react'
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { getSession, signOut } from 'next-auth/react';
+import { getSession, useSession, signOut } from 'next-auth/react';
 
 const navigation = {
   categories: [
@@ -135,8 +135,28 @@ export default function Navbar({ cart, setCart }) {
     checkAuth();
   }, []);
 
-  const removeFromCart = (index) => {
-    setCart((prevCart) => prevCart.filter((_, i) => i !== index));
+  const removeFromCart = async (index) => {
+    const itemToRemove = cart[index]; // Get the item to remove
+    try {
+      // Make an API call to delete the item from the database
+      const response = await fetch(`/api/cart`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ itemId: itemToRemove.itemId }), // Send the item ID to the backend
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete item from cart');
+      }
+
+      // Update the cart state locally after successful deletion
+      setCart((prevCart) => prevCart.filter((_, i) => i !== index));
+      console.log('Item removed successfully:', itemToRemove);
+    } catch (error) {
+      console.error('Error removing item from cart:', error);
+    }
   };
 
   const handleCheckout = () => {
